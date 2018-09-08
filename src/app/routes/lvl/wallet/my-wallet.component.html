@@ -1,0 +1,20 @@
+<page-header [title]="'我的钱包'"></page-header>
+<nz-card [nzBordered]="false">
+    <nz-form-item>
+        <nz-form-control nzSpan="24" class="text-center">
+            <h3><span style="font-weight: normal;">钱包余额：</span><b>{{totalYe}}</b>元</h3>
+            <h4 style="margin-bottom: 0;">还款账户</h4>
+            {{ funderHash }}
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="24" class="text-center">
+           <div nz-row>
+               <div nz-col nzSpan="8" style="background-color: #FF6600;">充值</div>
+               <div nz-col nzSpan="8" style="background-color: #0099FF;">转账</div>
+               <div nz-col nzSpan="8" style="background-color: #339999;">提现</div>
+           </div>
+        </nz-form-control>
+    </nz-form-item>
+    <simple-table [columns]="columns" [data]="data" ([loading])="loading"></simple-table>
+</nz-card>

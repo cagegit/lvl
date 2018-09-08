@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="wrap">
+        <div class="top">
+            <div class="head">
+                <a [routerLink]="['/']">
+                    <img class="logo" src="./assets/img/u17.png">
+                    <div class="title">旅信</div>
+                </a>
+            </div>
+            <!--<div class="desc">欢迎登录</div>-->
+        </div>
+        <router-outlet></router-outlet>
+        <global-footer [links]="links">
+            Copyright <i class="anticon anticon-copyright"></i> 2018 <a href="javascript:void(0);" target="_blank">旅信</a>出品
+        </global-footer>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+    "app": {
+        "name": "旅链",
+        "description": "旅链 - 区块链存证，让每一笔数据都成为资产"
+    },
+    "user": {
+        "name": "cage",
+        "avatar": "./assets/img/avatar.jpg",
+        "email": "jetcage@qq.com"
+    },
+    "menu": []
+}

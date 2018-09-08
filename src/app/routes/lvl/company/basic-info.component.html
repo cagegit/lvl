@@ -1,0 +1,48 @@
+<page-header [title]="'公司信息'"></page-header>
+<nz-card [nzBordered]="false" nzTitle="基本信息" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24" nzSm="24">
+            <desc-list size="small" col="1">
+                <desc-list-item ><h2>{{ comInfo?.name }}</h2></desc-list-item>
+            </desc-list>
+        </div>
+        <div nz-col  nzXs="24" nzSm="24">
+            <desc-list size="small" col="2" class="mt-lg">
+                <desc-list-item term="法定代表人"><span class="grey-back">{{ comInfo?.legalpersion }}</span></desc-list-item>
+                <desc-list-item term="统一社会信用代码"><span class="grey-back">{{ comInfo?.IDCard }}</span></desc-list-item>
+                <desc-list-item term="联系电话"><span class="grey-back">{{ comInfo?.tel }}</span></desc-list-item>
+                <desc-list-item term="许可证编号"><span class="grey-back">{{ comInfo?.account }}</span></desc-list-item>
+                <desc-list-item term="企业经营地区"><span class="grey-back">{{ comInfo?.address }}</span></desc-list-item>
+            </desc-list>
+            <desc-list size="small" col="1" class="mt-lg">
+                <desc-list-item term="资料完整度">
+                    <div style="width: 70%;">
+                        <nz-progress ([ngModel])="process" [nzStatus]="'active'"></nz-progress>
+                    </div>
+                </desc-list-item>
+                <desc-list-item>
+                    <button nz-button [nzType]="'primary'" style="display: inline-block;">完善资料</button>
+                </desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="信息材料" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24" nzSm="24">
+            <nz-carousel nzAutoPlay>
+                <div nz-carousel-content *ngFor="let index of array"><h3>{{index}}</h3></div>
+            </nz-carousel>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="电子回单" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24" nzSm="24">
+            <nz-carousel nzAutoPlay>
+                <div nz-carousel-content *ngFor="let index of array"><h3>{{index}}</h3></div>
+            </nz-carousel>
+        </div>
+    </div>
+</nz-card>

@@ -1,0 +1,51 @@
+<page-header [title]="'应收融资还款管理'"></page-header>
+<nz-card [nzBordered]="false">
+    <div class="my-md">
+        <nz-tabset>
+            <nz-tab [nzTitle]="'全部'" (nzSelect)="getSelect('all')"></nz-tab>
+            <nz-tab [nzTitle]="'还款中'" (nzSelect)="getSelect('repaying')"></nz-tab>
+            <nz-tab [nzTitle]="'已还清'" (nzSelect)="getSelect('yhq')"></nz-tab>
+            <nz-tab [nzTitle]="'已逾期'" (nzSelect)="getSelect('yyq')"></nz-tab>
+        </nz-tabset>
+    </div>
+    <simple-table [columns]="columns" [data]="data" ([loading])="loading" [hidden]="currentFilter==='repaying'">
+    </simple-table>
+    <simple-table [columns]="columns1" [data]="data" ([loading])="loading" [hidden]="currentFilter!=='repaying'">
+    </simple-table>
+</nz-card>
+<ng-template #modalContent>
+    <nz-form-item>
+        <nz-form-control nzSpan="24" class="text-center">
+            <div class="hk-head">
+                <img  src="../../../../../assets/img/u1564.png">
+            </div>
+            <h4 style="margin-bottom: 0;">还款账户</h4>
+            {{ funderHash }}
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzFor="qbyz" nzXs="24" nzSm="7">钱包余额</nz-form-label>
+        <nz-form-control nzXs="24" nzSm="12">
+            <input nz-input [ngModel]="item.qbye" name="description" nzReadonly="true" id="qbyz">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzFor="yhje" nzXs="24" nzSm="7">应还金额</nz-form-label>
+        <nz-form-control nzXs="24" nzSm="12">
+            <input nz-input [ngModel]="item.yhje" name="description" nzReadonly="true" id="yhje">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzFor="hkje" nzXs="24" nzSm="7">还款金额</nz-form-label>
+        <nz-form-control nzXs="24" nzSm="12">
+            <input nz-input [(ngModel)]="item.hkje" name="description" placeholder="请输入还款金额" id="hkje">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="24" class="text-center">
+            <button nz-button nzType="primary" [nzLoading]="loading" (click)="congfirmZf()">确认转账</button>
+        </nz-form-control>
+    </nz-form-item>
+</ng-template>
+<ng-template #modalFooter>
+</ng-template>

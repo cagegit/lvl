@@ -1,0 +1,45 @@
+<form nz-form [formGroup]="form" (ngSubmit)="_submitForm()">
+    <nz-alert class="pb-lg" [nzMessage]="'电子签名将跳转到第三方机构签名确认'" [nzShowIcon]="true" [nzCloseable]="true"></nz-alert>
+    <!--<nz-form-item>-->
+        <!--<nz-form-label nzSpan="5">付款账户</nz-form-label>-->
+        <!--<nz-form-control nzSpan="19"><nz-form-text>{{item.pay_account}}</nz-form-text></nz-form-control>-->
+        <!--<nz-form-extra>sof</nz-form-extra>-->
+    <!--</nz-form-item>-->
+    <nz-card  class="">
+        <div class="fx-bg">
+           <img src="../../../../assets/img/fx_bg.png">
+           <button nz-button [nzType]="'primary'" type="button">电子签名</button>
+        </div>
+        <div class="pd-10 text-center">
+            <nz-form-text>您还没有上传合同章 <a href="javascript:void(0);">立即上传</a></nz-form-text>
+        </div>
+    </nz-card>
+    <nz-form-item>
+        <nz-form-control [nzSpan]="19" [nzOffset]="5">
+            <button nz-button [nzType]="'primary'" [nzLoading]="loading" [disabled]="form.invalid">合同签名</button>
+            <!--<button nz-button (click)="prev()">上一步</button>-->
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<style>
+    .pd-10 {
+        padding: 10px;
+    }
+    .fx-bg {
+        background: url('../../../../assets/img/fx_ht.png') center no-repeat;
+        padding: 10px;
+        position: relative;
+    }
+    .fx-bg img {
+        border: 0;
+        margin: 0 auto;
+        width: 309px;
+        display: block;
+    }
+    .fx-bg button {
+        position: absolute;
+        z-index: 2;
+        left: 40%;
+        top: 45%;
+    }
+</style>

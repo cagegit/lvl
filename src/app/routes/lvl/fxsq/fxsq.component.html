@@ -1,0 +1,14 @@
+<page-header [title]="'分销申请'">
+    向供应商提交分销申请
+</page-header>
+<nz-card [nzBordered]="false">
+    <!--<nz-steps [(nzCurrent)]="item.step">-->
+        <!--<nz-step nzTitle="上传合同并填写订单信息"></nz-step>-->
+        <!--<nz-step nzTitle="电子签名"></nz-step>-->
+        <!--<nz-step nzTitle="完成 预定"></nz-step>-->
+    <!--</nz-steps>-->
+    <app-step1 *ngIf="item.step==0"></app-step1>
+    <app-step2 *ngIf="item.step==1"></app-step2>
+    <!--&lt;!&ndash;<app-step3 *ngIf="item.step==2"></app-step3>&ndash;&gt;-->
+    <!--<app-step4 *ngIf="item.step==2"></app-step4>-->
+</nz-card>

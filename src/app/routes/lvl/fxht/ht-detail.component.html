@@ -1,0 +1,110 @@
+<page-header [title]="'合同详情'"></page-header>
+<nz-card [nzBordered]="false" nzTitle="合同概况" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24" nzSm="24">
+            <desc-list size="small" col="1">
+                <desc-list-item ><h2>{{ htInfo?.title }}</h2></desc-list-item>
+            </desc-list>
+        </div>
+        <div nz-col  nzXs="24" nzSm="18" style="border-right: 1px solid #ddd;">
+            <desc-list size="small" col="2" class="mt-lg">
+                <desc-list-item term="供应商"><span class="grey-back">{{ htInfo?.suppliername }}</span></desc-list-item>
+                <desc-list-item term="订单总额"><span class="grey-back">{{ htInfo?.amount }}元</span></desc-list-item>
+                <desc-list-item term="申请时间"><span class="grey-back">{{ htInfo?.booktime | date }}</span></desc-list-item>
+                <desc-list-item term="预付金额"><span class="grey-back">{{ htInfo?.amount * htInfo?.PrepayRate /100 }}元</span></desc-list-item>
+            </desc-list>
+            <desc-list size="small" col="1" class="mt-lg">
+                <desc-list-item term="TxHash"><span class="grey-back">{{ qkInfo[0]?.txid}}</span></desc-list-item>
+                <desc-list-item term="Height "><span class="grey-back">{{ qkInfo[0]?.height}}</span></desc-list-item>
+                <desc-list-item term="TimeStamp "><span class="grey-back">{{ qkInfo[0]?.timestamp | date}}</span></desc-list-item>
+            </desc-list>
+        </div>
+        <div nz-col  nzXs="24" nzSm="6">
+            <desc-list size="small" class="mt-lg pl-md" col="1">
+                <desc-list-item><b class="text-lg">{{ dstatus[parentInfo.status]}}</b></desc-list-item>
+                <desc-list-item *ngIf="parentInfo.status==='req' && parentInfo.type===1" class="mt-sm">
+                    <button nz-button [nzType]="'primary'"  [nzSize]="'small'" (click)="confirmContract()" [nzLoading]="loading">确认合同</button>
+                </desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="合同资料" class="mb-lg">
+    <div nz-row>
+        <h4 class="my-sm">分销合同</h4>
+        <div nz-col  nzXs="24" nzSm="8" *ngFor="let item of files">
+            <div class="ht-d-item">
+                <a href="{{ item?.url}}" target="_blank"><div class="ht-d-img" [ngStyle]="{'background': 'url('+ item?.url +') center no-repeat'}"></div></a>
+            </div>
+            <a href="{{ item?.url}}" target="_blank" style="display: block;" class="text-grey text-center">{{ item?.file}}</a>
+        </div>
+        <div nz-col  nzXs="24" *ngIf="files.length===0">
+            <div class="text-grey text-center">无合同</div>
+        </div>
+    </div>
+    <!--<div nz-row>-->
+        <!--<h4 class="my-md">融资合同</h4>-->
+        <!--<div nz-col  nzXs="24" nzSm="8">-->
+            <!--<div class="ht-d-item">-->
+                <!--<div class="ht-d-img"></div>-->
+            <!--</div>-->
+            <!--<p class="text-grey text-center">万众出境游合作项目融资</p>-->
+        <!--</div>-->
+        <!--<div nz-col  nzXs="24" nzSm="8">-->
+            <!--<div class="ht-d-item">-->
+                <!--<div class="ht-d-img"></div>-->
+            <!--</div>-->
+            <!--<p class="text-grey text-center">万众出境游合作项目融资</p>-->
+        <!--</div>-->
+    <!--</div>-->
+</nz-card>
+<nz-card [nzBordered]="false" class="mb-lg" nzTitle="流程进度">
+    <nz-steps [(nzCurrent)]="process" nzProgressDot>
+        <nz-step [nzTitle]="'申请中'" [nzDescription]="createDesc">
+            <ng-template #createDesc>
+                <div class="desc text-center">
+                    <div class="my-sm">申请处理中</div>
+                    <div *ngIf="qkInfo[0]" style="overflow: hidden; text-align: left; position: absolute; left: 0; width: 200px;">
+                        <desc-list size="small" col="1">
+                            <desc-list-item term="TxHash">{{ qkInfo[0]?.txid }}</desc-list-item>
+                            <desc-list-item term="Height ">{{ qkInfo[0]?.height}}</desc-list-item>
+                            <desc-list-item term="TimeStamp ">{{ qkInfo[0]?.timestamp | date}}</desc-list-item>
+                        </desc-list>
+                    </div>
+                </div>
+            </ng-template>
+        </nz-step>
+        <nz-step [nzTitle]="'已确认'" [nzDescription]="createDesc3">
+            <ng-template #createDesc3>
+                <div class="desc text-center">
+                    <div class="my-sm">申请已确认</div>
+                    <div *ngIf="qkInfo[1]"  style="overflow: hidden; text-align: left; position: absolute; right: 0; width: 200px;">
+                        <desc-list size="small" col="1">
+                            <desc-list-item term="TxHash">{{ qkInfo[1]?.txid}}</desc-list-item>
+                            <desc-list-item term="Height ">{{ qkInfo[1]?.height}}</desc-list-item>
+                            <desc-list-item term="TimeStamp ">{{ qkInfo[1]?.timestamp | date}}</desc-list-item>
+                        </desc-list>
+                    </div>
+                </div>
+            </ng-template>
+        </nz-step>
+    </nz-steps>
+    <div class="steps-content" style="height: 80px;"></div>
+</nz-card>
+<style>
+    .ht-d-item {
+        margin: 10px;
+        border: 1px solid #ddd;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+    .ht-d-img {
+        background: url("../../../../assets/img/u2923.png") center no-repeat;
+        height: 300px;
+        margin: 10px auto;
+    }
+    .grey-back {
+        background-color: #f2f2f2 !important;
+    }
+</style>

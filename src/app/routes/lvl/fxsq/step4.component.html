@@ -1,0 +1,14 @@
+<div class="icon pt-md"><i class="anticon anticon-close-circle text-error icon-lg"></i></div>
+<h1 class="h2 pt-md">提交失败</h1>
+<p class="pt-md text-grey">请核对并修改以下信息后，再重新提交。</p>
+<div nz-row class="my-md py-md">
+    <div nz-col>
+        <button nz-button (click)="item.again()" [nzType]="'primary'">重新提交</button>
+        <!--<button nz-button class="ml-md">查看账单</button>-->
+    </div>
+</div>
+<div class="border-top-1 mt-lg px-lg text-grey-dark" style="text-align: left;">
+    <h4 class="h4 mt-sm mb-sm">可能原因</h4>
+    <p class="mb-sm"><i class="anticon anticon-close-circle text-error icon-xs"></i> 公司已被列入经营异常名单  <a class="pl-sm" href="javascript:void(0);">查看帮助</a></p>
+    <p><i class="anticon anticon-close-circle text-error icon-xs"></i> 公司被列入严重失信企业名单   <a class="pl-sm" href="javascript:void(0);">查看帮助</a></p>
+</div>

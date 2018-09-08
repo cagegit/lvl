@@ -1,0 +1,102 @@
+<h3>注册</h3>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+    <!--<nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>-->
+    <nz-form-item>
+        <nz-form-control>
+            <nz-input-group nzSize="large">
+                <nz-select style="width: 100%;" [nzSize]="'large'" formControlName="userType" [nzPlaceHolder]="'请选择机构身份类别'">
+                    <nz-option
+                        *ngFor="let option of options"
+                        [nzLabel]="option.label"
+                        [nzValue]="option">
+                    </nz-option>
+                </nz-select>
+                <ng-container *ngIf="userType.dirty && userType.errors">
+                    <nz-form-explain *ngIf="userType.errors?.required">请选择机构身份类别</nz-form-explain>
+                </ng-container>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-user">
+                <input nz-input formControlName="company" placeholder="请输入公司注册名称">
+            </nz-input-group>
+            <ng-container *ngIf="company.dirty && company.errors">
+                <nz-form-explain *ngIf="company.errors?.required">请输入公司注册名称！</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-user">
+                <input nz-input formControlName="name" placeholder="请输入3-20个字符经办人姓名">
+            </nz-input-group>
+            <ng-container *ngIf="name.dirty && name.errors">
+                <nz-form-explain *ngIf="name.errors?.required">请输入经办人姓名！</nz-form-explain>
+                <nz-form-explain *ngIf="name.errors?.pattern">经办人姓名长度在3-20位之间！</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-user">
+                <input nz-input formControlName="nickName" placeholder="请输入3-20个字符用户ID">
+            </nz-input-group>
+            <ng-container *ngIf="nickName.dirty && nickName.errors">
+                <nz-form-explain *ngIf="nickName.errors?.required">请输入用户ID！</nz-form-explain>
+                <nz-form-explain *ngIf="nickName.errors?.pattern">用户ID长度在3-20位之间！</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible"
+                nzOverlayClassName="register-password-cdk" [nzOverlayStyle]="{'width.px': 240}">
+                <nz-input-group nzSize="large" nz-popover nzAddonBeforeIcon="anticon anticon-lock">
+                    <input nz-input type="password" formControlName="password" placeholder="至少6位密码，区分大小写">
+                </nz-input-group>
+                <nz-form-explain *ngIf="password.dirty && password.errors">请输入密码！</nz-form-explain>
+                <ng-template #nzTemplate>
+                    <div style="padding: 4px 0;">
+                        <ng-container [ngSwitch]="status">
+                            <div *ngSwitchCase="'ok'" class="success">强度：强</div>
+                            <div *ngSwitchCase="'pass'" class="warning">强度：中</div>
+                            <div *ngSwitchDefault class="error">强度：太短</div>
+                        </ng-container>
+                        <div class="progress-{{status}}">
+                            <nz-progress
+                                [nzPercent]="progress"
+                                [nzStatus]="passwordProgressMap[status]"
+                                [nzStrokeWidth]="6"
+                                [nzShowInfo]="false"></nz-progress>
+                        </div>
+                        <p class="mt-sm">请至少输入 6 个字符。请不要使用容易被猜到的密码。</p>
+                    </div>
+                </ng-template>
+            </nz-popover>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-lock">
+                <input nz-input type="password" formControlName="confirm" placeholder="确认密码">
+            </nz-input-group>
+            <ng-container *ngIf="confirm.dirty && confirm.errors">
+                <nz-form-explain *ngIf="confirm.errors?.required">请确认密码！</nz-form-explain>
+                <nz-form-explain *ngIf="confirm.errors?.equar">两次输入的密码不匹配！</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <button nz-button nzType="primary" [disabled]="!isXyCk" nzSize="large" type="submit" [nzLoading]="loading" class="submit">
+            <span>确认注册</span>
+        </button>
+        <a class="login" routerLink="/passport/login">使用已有账户登录</a>
+    </nz-form-item>
+    <nz-form-item  style="text-align: center;">
+        <label nz-checkbox [(ngModel)]="isXyCk" [ngModelOptions]="{standalone: true}">
+            <span>点击确认注册表示同意平台注册协议</span>
+        </label><a href="javascript:void(0);">阅读协议</a>
+    </nz-form-item>
+</form>

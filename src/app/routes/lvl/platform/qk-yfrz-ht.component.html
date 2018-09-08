@@ -1,0 +1,16 @@
+<page-header [title]="'预付融资列表'"></page-header>
+<nz-card [nzBordered]="false">
+        <div class="my-md">
+                <nz-tabset>
+                        <nz-tab [nzTitle]="'全部'" (nzSelect)="getSelect('all')"></nz-tab>
+                        <nz-tab [nzTitle]="'申请中'" (nzSelect)="getSelect('req')"></nz-tab>
+                        <nz-tab [nzTitle]="'已确认'" (nzSelect)="getSelect('ensure')"></nz-tab>
+                </nz-tabset>
+        </div>
+        <simple-table #st [columns]="columns" [data]="data" ([loading])="loading"
+                                    (filterChange)="getData()">
+                <ng-template st-row="status" let-i>
+                        <nz-badge [nzStatus]="i.status" [nzText]="dstatus[i.status]"></nz-badge>
+                </ng-template>
+        </simple-table>
+</nz-card>

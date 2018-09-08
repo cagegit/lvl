@@ -1,0 +1,52 @@
+<page-header [title]="'规则设置'"></page-header>
+<nz-card [nzBordered]="false" nzTitle="佣金规则" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="1" class="mt-lg">
+                <desc-list-item term="佣金承担方">
+                    <nz-radio-group [(ngModel)]="yjcd">
+                        <label nz-radio [nzValue]="'A'">
+                            <span>融资方</span>
+                        </label>
+                        <label nz-radio [nzValue]="'B'">
+                            <span>出资方</span>
+                        </label>
+                    </nz-radio-group>`
+                </desc-list-item>
+                <desc-list-item term="计费模式" class="mt-lg">
+                    <nz-radio-group [(ngModel)]="jfms">
+                        <label nz-radio [nzValue]="'A'">
+                            <span>按融资比例</span>
+                        </label>
+                        <label nz-radio [nzValue]="'B'">
+                            <span>按笔收取</span>
+                        </label>
+                    </nz-radio-group>`
+                </desc-list-item>
+                <desc-list-item term="收入百分比" class="mt-lg">
+                    <nz-input-group nzAddOnAfter="%" style="width: 50%;">
+                        <input nz-input [(ngModel)]="bfb" >
+                    </nz-input-group>
+                </desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="融资规则" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="1" class="mt-lg">
+                <desc-list-item term="产品利率上限">
+                    <nz-input-group nzAddOnAfter="%"  style="width: 50%;">
+                        <input nz-input [(ngModel)]="cplv_sx">
+                    </nz-input-group>
+                </desc-list-item>
+                <desc-list-item term="单笔融资上限" class="mt-lg">
+                    <nz-input-group nzAddOnAfter="元" style="width: 50%;">
+                        <input nz-input [(ngModel)]="dbrz_sz" >
+                    </nz-input-group>
+                </desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>

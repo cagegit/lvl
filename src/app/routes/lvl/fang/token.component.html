@@ -1,0 +1,82 @@
+<page-header [title]="'预付Token确认'"></page-header>
+<nz-card [nzBordered]="false" class="mb-lg">
+        <div nz-row>
+                <div nz-col  nzXs="24" nzSm="8" class="text-center">
+                        <p><span style="font-size: large;">21%</span><br>年化利率</p>
+                </div>
+                <div nz-col  nzXs="24" nzSm="8">
+                        <p><span style="font-size: large; color: rgb(255, 102, 0);">538,500.00元</span><br>额度</p>
+                </div>
+                <div nz-col  nzXs="24" nzSm="8">
+                        <p><span style="font-size: large;">3个月</span><br>贷款期限</p>
+                </div>
+        </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="借款人信息" class="mb-lg">
+        <div nz-row>
+                <div nz-col  nzXs="24">
+                        <desc-list size="small" col="3" class="mt-lg">
+                                <desc-list-item term="借款人"><span class="grey-back">{{ htInfo?.borrowername }}</span></desc-list-item>
+                                <desc-list-item term="法人代表"><span class="grey-back">{{ htInfo?.agent }}</span></desc-list-item>
+                                <desc-list-item term="身份证"><span class="grey-back">{{ htInfo?.idcard }}</span></desc-list-item>
+                        </desc-list>
+                </div>
+        </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="融资信息" class="mb-lg">
+        <div nz-row>
+                <div nz-col  nzXs="24">
+                        <desc-list size="small" col="3" class="mt-lg">
+                                <desc-list-item term="合同"><span class="grey-back">{{ htInfo?.title }}</span></desc-list-item>
+                                <desc-list-item term="总额"><span class="grey-back">{{ htInfo?.total }}</span></desc-list-item>
+                                <desc-list-item term="贷款"><span class="grey-back">{{ htInfo?.loan }}</span></desc-list-item>
+                        </desc-list>
+                </div>
+                <div nz-col  nzXs="24">
+                        <desc-list size="small" col="3" class="mt-lg">
+                                <desc-list-item term="期限"><span class="grey-back">{{ htInfo?.loanproduct?.term }}</span></desc-list-item>
+                                <desc-list-item term="利率"><span class="grey-back">{{ htInfo?.loanproduct?.rate }}</span></desc-list-item>
+                                <desc-list-item term="还款方式"><span class="grey-back">{{ htInfo?.loanproduct?.repaymethod }}</span></desc-list-item>
+                        </desc-list>
+                </div>
+                <div nz-col  nzXs="24" class="text-center mt-lg">
+                            <button nz-button [nzType]="'primary'" (click)="tokenZf()">立即TOKEN转账</button>
+                </div>
+        </div>
+</nz-card>
+<ng-template #modalContent>
+        <nz-form-item>
+                <nz-form-control nzSpan="24" class="text-center">
+                        <div class="hk-head">
+                                <img  src="../../../../assets/img/u1564.png">
+                        </div>
+                        <h4 style="margin-bottom: 0;">转出账户: {{ htInfo?.fundername }}</h4>
+                        {{ sx?.funderUsccHash }}
+                </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+                <nz-form-label nzFor="qbyz" nzXs="24" nzSm="7">转入公司</nz-form-label>
+                <nz-form-control nzXs="24" nzSm="12">
+                        {{ htInfo?.borrowername }}
+                </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+                <nz-form-label nzFor="qbyz" nzXs="24" nzSm="7">转入钱包地址</nz-form-label>
+                <nz-form-control nzXs="24" nzSm="12" style="overflow: hidden;">
+                        {{ sx?.borrowerUsccHash.slice(0, 40) }}
+                </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+                <nz-form-label nzFor="yhje" nzXs="24" nzSm="7">授信金额</nz-form-label>
+                <nz-form-control nzXs="24" nzSm="12">
+                        <input nz-input [(ngModel)]="sx.money" name="description" id="yhje">
+                </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+                <nz-form-control nzSpan="24" class="text-center">
+                        <button nz-button nzType="primary" [nzLoading]="loading" (click)="congfirmZf()">确认转账</button>
+                </nz-form-control>
+        </nz-form-item>
+</ng-template>
+<ng-template #modalFooter>
+</ng-template>

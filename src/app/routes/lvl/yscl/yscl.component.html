@@ -1,0 +1,32 @@
+<page-header [title]="'预收处理'">
+    预收订单流程
+</page-header>
+<nz-card [nzBordered]="false">
+    <nz-steps [(nzCurrent)]="item.step">
+        <nz-step nzTitle="确认订单信息"></nz-step>
+        <nz-step nzTitle="电子签名"></nz-step>
+        <nz-step nzTitle="发送签名请求"></nz-step>
+    </nz-steps>
+    <div class="step-box" *ngIf="item.step==0">
+       <nz-card [nzBordered]="true" [nzTitle]="'订单信息'">
+           <desc-list size="small" [col]="2">
+               <desc-list-item term="产品名称">8月北美探险旅行</desc-list-item>
+               <desc-list-item term="分销商">中青旅北京分公司</desc-list-item>
+               <desc-list-item term="订单总额">￥ 650,000元</desc-list-item>
+           </desc-list>
+       </nz-card>
+        <nz-card [nzBordered]="true" [nzTitle]="'合同信息'">
+            <desc-list size="small" [col]="1">
+                <desc-list-item term="预付金额"><span class="text-success">390,000元</span></desc-list-item>
+                <desc-list-item term="预付比例"><span class="text-success">60%</span></desc-list-item>
+                <desc-list-item term="预付合同">北美探险旅行合作协议.jpg <a href="javascript:void(0);">查看合同</a></desc-list-item>
+            </desc-list>
+        </nz-card>
+        <div nz-row class="my-md py-md">
+            <div nz-col class="text-center">
+                <button nz-button [nzType]="'primary'">确认订单信息</button>
+            </div>
+        </div>
+    </div>
+</nz-card>
+

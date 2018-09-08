@@ -1,0 +1,154 @@
+
+<page-header [title]="'预付融资申请'"></page-header>
+<nz-card [nzBordered]="false" [hidden]="current_step===2">
+    <simple-table #st [data]="data" [columns]="columns" [loading]="loading"></simple-table>
+</nz-card>
+<nz-card [nzBordered]="false" [hidden]="current_step===1">
+    <form nz-form [formGroup]="form" (ngSubmit)="_submitForm()">
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="htmc">合同名称</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <input nz-input formControlName="title" id="htmc" placeholder="请输入合同名称">
+                <ng-container *ngIf="title.dirty || title.touched">
+                    <nz-form-explain *ngIf="title.errors?.required">合同名称不能为空！</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jkr">借款人</nz-form-label>
+            <nz-form-control nzSpan="19">
+                <input nz-input formControlName="borrowername" id="jkr">
+                <ng-container *ngIf="borrowername.dirty || borrowername.touched">
+                    <nz-form-explain *ngIf="borrowername.errors?.required">请输入公司名称</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jbr">经办人</nz-form-label>
+            <nz-form-control nzSpan="19">
+                <input nz-input formControlName="agent" id="jbr" placeholder="请输入经办人姓名">
+                <ng-container *ngIf="agent.dirty || agent.touched">
+                    <nz-form-explain *ngIf="agent.errors?.required">经办人姓名不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jbr_card">经办人身份证</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <input nz-input formControlName="idcard" id="jbr_card" placeholder="请输入经办人身份证号码">
+                <ng-container *ngIf="idcard.dirty || idcard.touched">
+                    <nz-form-explain *ngIf="idcard.errors?.required">经办人身份证不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="sc_sfz">上传身份证</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-upload
+                    [nzAction]="fileInfo.postFileUrl"
+                    (nzChange)="handleChange1($event)"
+                    [nzData]="fileInfo.postFileData"
+                    [nzMultiple]="true"
+                    [nzLimit]="2"
+                    id="sc_sfz">
+                    <button nz-button type="button">
+                        <i class="anticon anticon-upload"></i><span>点击上传</span>
+                    </button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="rzxm">融资项目</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-select formControlName="fpsn" id="rzxm" [nzPlaceHolder]="'请选择融资项目'">
+                    <nz-option *ngFor="let it of projects" [nzLabel]="it.title" [nzValue]="it"></nz-option>
+                </nz-select>
+                <ng-container *ngIf="fpsn.dirty || fpsn.touched">
+                    <nz-form-explain *ngIf="fpsn.errors?.required">融资项目不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="zonge">总额</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-input-group nzAddOnAfter="￥">
+                    <input nz-input formControlName="total" id="zonge">
+                </nz-input-group>
+                <ng-container *ngIf="total.dirty || total.touched">
+                    <nz-form-explain *ngIf="total.errors?.required">总额</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jkje">借款金额</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-input-group nzAddOnAfter="￥">
+                    <input nz-input formControlName="loan" id="jkje">
+                </nz-input-group>
+                <ng-container *ngIf="loan.dirty || loan.touched">
+                    <nz-form-explain *ngIf="loan.errors?.required">借款金额不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jkqx">借款期限</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-input-group nzCompact>
+                    <input formControlName="term" id="'jkqx'" nz-input style="width: 75%;">
+                    <nz-select formControlName="term_dw" style="width: 25%;">
+                        <nz-option [nzLabel]="'月'" [nzValue]="'month'"></nz-option>
+                        <nz-option [nzLabel]="'天'" [nzValue]="'day'"></nz-option>
+                    </nz-select>
+                </nz-input-group>
+                <ng-container *ngIf="term.dirty || term.touched">
+                    <nz-form-explain *ngIf="term.errors?.required">借款期限不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="hkfs">还款方式</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-select formControlName="repaymethod" id="hkfs" [nzPlaceHolder]="'请选择还款方式'">
+                    <nz-option *ngFor="let it of hkfs" [nzLabel]="it.name" [nzValue]="it"></nz-option>
+                </nz-select>
+                <ng-container *ngIf="repaymethod.dirty || repaymethod.touched">
+                    <nz-form-explain *ngIf="repaymethod.errors?.required">还款方式不能为空</nz-form-explain>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="xmht">项目合同</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-upload [nzAction]="fileInfo.postFileUrl"
+                           (nzChange)="handleChange2($event)"
+                           [nzData]="fileInfo.postFileData"
+                           [nzMultiple]="true"
+                           [nzLimit]="10" id="xmht">
+                    <button nz-button type="button">
+                        <i class="anticon anticon-upload"></i><span>上传合同</span>
+                    </button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired nzFor="jyxx">经营信息</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <nz-upload [nzAction]="fileInfo.postFileUrl"
+                           (nzChange)="handleChange3($event)"
+                           [nzData]="fileInfo.postFileData"
+                           [nzMultiple]="true"
+                           [nzLimit]="10" id="jyxx">
+                    <button nz-button type="button">
+                        <i class="anticon anticon-upload"></i><span>上传经营信息</span>
+                    </button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzSpan="19" nzOffset="5">
+                <button nz-button nzType="primary" [disabled]="form.invalid" [nzLoading]="loading">保存</button>
+                <button nz-button nzType="default" class="ml-md" [disabled]="loading" (click)="stepBack()">返回</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</nz-card>

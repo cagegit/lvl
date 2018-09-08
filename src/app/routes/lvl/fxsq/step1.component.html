@@ -1,0 +1,74 @@
+<h3 class="text-center">上传合同</h3>
+<form nz-form [formGroup]="form" (ngSubmit)="_submitForm()">
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzRequired nzFor="gys">供应商</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+            <nz-select formControlName="fx_gyx" id="gys" [nzPlaceHolder]="'请选择供应商'">
+                <nz-option *ngFor="let it of item.gysList" [nzLabel]="it.name" [nzValue]="it"></nz-option>
+            </nz-select>
+            <ng-container *ngIf="fx_gyx.dirty || fx_gyx.touched">
+                <nz-form-explain *ngIf="fx_gyx.errors?.required">请选择供应商名称</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzRequired nzFor="contract_project">合同项目</nz-form-label>
+        <nz-form-control nzSpan="19">
+            <input nz-input formControlName="fx_htxm" id="contract_project">
+            <ng-container *ngIf="fx_htxm.dirty || fx_htxm.touched">
+                <nz-form-explain *ngIf="fx_htxm.errors?.required">请输入合同项目名称</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzRequired nzFor="amount">订单总额</nz-form-label>
+        <nz-form-control nzSpan="19">
+            <input nz-input formControlName="fx_amount" id="amount" nzAddonAfter="￥">
+            <ng-container *ngIf="fx_amount.dirty || fx_amount.touched">
+                <nz-form-explain *ngIf="fx_amount.errors?.required">请输入转账金额</nz-form-explain>
+                <nz-form-explain *ngIf="fx_amount.errors?.pattern">金额只能是正整数</nz-form-explain>
+                <nz-form-explain *ngIf="fx_amount.errors?.min">金额最少1元以上</nz-form-explain>
+                <nz-form-explain *ngIf="fx_amount.errors?.max">金额最多100万以内</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzRequired nzFor="yfbl">预付比例</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+            <nz-select formControlName="fx_percent" id="yfbl" [nzPlaceHolder]="'请选择预付比例'">
+                <nz-option *ngFor="let it of item.yfblList" [nzLabel]="it.label" [nzValue]="it"></nz-option>
+            </nz-select>
+            <ng-container *ngIf="fx_percent.dirty || fx_percent.touched">
+                <nz-form-explain *ngIf="fx_percent.errors?.required">请选择预付比例</nz-form-explain>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzFor="scht">上传合同</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+            <nz-upload
+                [nzAction]="fileInfo.postFileUrl"
+                (nzChange)="handleChange($event)"
+                [nzData]="fileInfo.postFileData"
+                [nzMultiple]="true"
+                [nzLimit]="10"
+                id="scht">
+                <button nz-button type="button">
+                    <i class="anticon anticon-upload"></i><span>点击上传</span>
+                </button>
+            </nz-upload>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="19" nzOffset="5">
+            <button nz-button nzType="primary" [disabled]="form.invalid">确认合同信息</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<!--<div class="border-top-1 mt-lg px-lg text-grey-dark">-->
+    <!--<h3 class="h3 my-md">说明</h3>-->
+    <!--<h4 class="h4 mb-sm">转账到支付宝账户</h4>-->
+    <!--<p class="mb-sm">如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>-->
+    <!--<h4 class="h4 mb-sm">转账到银行卡</h4>-->
+    <!--<p>如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>-->
+<!--</div>-->

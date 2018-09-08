@@ -1,0 +1,133 @@
+<page-header [title]="'应收融资详情'"></page-header>
+<nz-card [nzBordered]="false" nzTitle="借款人信息" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="3" class="mt-lg">
+                <desc-list-item term="借款人"><span class="grey-back">{{ htInfo?.borrowername }}</span></desc-list-item>
+                <desc-list-item term="法人代表"><span class="grey-back">{{ htInfo?.agent }}</span></desc-list-item>
+                <desc-list-item term=""><button nz-button [nzType]="'primary'" (click)="qyzx()">企业征信</button></desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="贷款信息" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="3" class="mt-lg">
+                <desc-list-item term="贷款金额"><span class="grey-back">{{ htInfo?.loan }}</span></desc-list-item>
+                <desc-list-item term="贷款期限"><span class="grey-back">{{ htInfo?.term }}</span></desc-list-item>
+                <desc-list-item term="贷款利率"><span class="grey-back">{{ htInfo?.loanproduct?.rate }}</span></desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="分销合同信息" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="3" class="mt-lg">
+                <desc-list-item term="甲方（供应商）"><span class="grey-back">{{ htInfo?.project?.suppliername }}</span></desc-list-item>
+                <desc-list-item term="乙方（分销商）"><span class="grey-back">{{ htInfo?.project?.distributorname }}</span></desc-list-item>
+                <desc-list-item term="项目金额"><span class="grey-back">{{ htInfo?.total }}</span></desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="合同资料" class="mb-lg">
+    <div nz-row>
+        <h4 class="my-sm">分销合同</h4>
+        <div nz-col  nzXs="24" nzSm="8" *ngFor="let item of files">
+            <div class="ht-d-item">
+                <a href="{{ item?.url}}" target="_blank"><div class="ht-d-img" [ngStyle]="{'background': 'url('+ item?.url +') center no-repeat'}"></div></a>
+            </div>
+            <a href="{{ item?.url}}" target="_blank" style="display: block;" class="text-grey text-center">{{ item?.file}}</a>
+        </div>
+        <div nz-col  nzXs="24" *ngIf="files.length===0">
+            <div class="text-grey text-center">无合同</div>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="区块信息" class="mb-lg">
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="1" class="mt-lg">
+                <desc-list-item term="TxHash"><span class="grey-back">{{ queryParam?.txid }}</span></desc-list-item>
+                <desc-list-item term="Height"><span class="grey-back">{{ queryParam?.height }}</span></desc-list-item>
+                <desc-list-item term="TimeStamp"><span class="grey-back">{{ queryParam?.timestamp }}</span></desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+</nz-card>
+<nz-card [nzBordered]="false" class="mb-lg" *ngIf="!isLoaned">
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzRequired nzFor="yfbl">审核结果</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+            <nz-select [(ngModel)]="shParam.result" style="width: 100%;" id="yfbl" [nzPlaceHolder]="'请输入审核结果'">
+                <nz-option *ngFor="let it of shList" [nzLabel]="it.label" [nzValue]="it"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="5" nzFor="scht">预期放款</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+            <input nz-input [(ngModel)]="shParam.yqfk" id="scht">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="8" nzOffset="4" class="text-center">
+            <button nz-button nzType="primary" (click)="shenhe()" [nzLoading]="loading">审核</button>
+        </nz-form-control>
+    </nz-form-item>
+</nz-card>
+<ng-template #modalContent>
+    <div nz-row>
+        <div nz-col  nzXs="24">
+            <h4>企业基本信息</h4>
+        </div>
+        <div nz-col  nzXs="24">
+            <desc-list size="small" col="2" class="mt-md">
+                <desc-list-item term="公司名称"><span class="grey-back">{{ zhengx?.name }}</span></desc-list-item>
+                <desc-list-item term="统一社会信用代码"><span class="grey-back">{{ zhengx?.account }}</span></desc-list-item>
+                <desc-list-item term="营业执照"><span class="grey-back">{{ zhengx?.name }}</span></desc-list-item>
+                <desc-list-item term="许可证编号"><span class="grey-back">{{ zhengx?.uscc }}</span></desc-list-item>
+                <desc-list-item term="法人代表"><span class="grey-back">{{ zhengx?.legalpersion }}</span></desc-list-item>
+                <desc-list-item term="身份证"><span class="grey-back">{{ zhengx?.IDCard }}</span></desc-list-item>
+                <desc-list-item term="公司地址"><span class="grey-back">{{ zhengx?.address }}</span></desc-list-item>
+                <desc-list-item term="联系方式"><span class="grey-back">{{ zhengx?.tel }}</span></desc-list-item>
+            </desc-list>
+        </div>
+    </div>
+    <nz-form-item class="mt-md">
+        <nz-form-control nzSpan="24" class="text-center">
+            <div nz-row  nzXs="24" nzSm="24" style="text-align: left;">
+                <h4>相关证明材料</h4>
+            </div>
+            <div nz-row>
+                <div nz-col  nzXs="24" nzSm="8" *ngFor="let item of zhengx?.files">
+                    <div class="ht-d-item">
+                        <a href="{{ item?.url}}" target="_blank"><div class="ht-d-img" [ngStyle]="{'background': 'url(\''+item?.url+'\') center no-repeat','background-size':'cover'}"></div></a>
+                    </div>
+                    <a href="{{ item?.url}}" target="_blank" style="display: block;" class="text-grey text-center">{{ item?.file}}</a>
+                </div>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+</ng-template>
+<ng-template #modalFooter>
+</ng-template>
+<style>
+    .ht-d-item {
+        margin: 10px;
+        border: 1px solid #ddd;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+    .ht-d-img {
+        background: url("../../../../assets/img/u2923.png") center no-repeat;
+        height: 300px;
+        margin: 10px auto;
+    }
+    .grey-back {
+        background-color: #f2f2f2 !important;
+    }
+</style>
+

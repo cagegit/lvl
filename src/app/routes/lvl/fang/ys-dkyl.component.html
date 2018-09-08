@@ -1,0 +1,13 @@
+<page-header [title]="'应收贷款一览'"></page-header>
+<nz-card [nzBordered]="false">
+    <div class="my-md">
+        <nz-tabset>
+            <nz-tab [nzTitle]="'全部'" (nzSelect)="getSelect('all')"></nz-tab>
+            <nz-tab [nzTitle]="'申请中'" (nzSelect)="getSelect('req')"></nz-tab>
+            <nz-tab [nzTitle]="'通过审核'" (nzSelect)="getSelect('ensure')"></nz-tab>
+            <nz-tab [nzTitle]="'未通过审核'" (nzSelect)="getSelect('btg')"></nz-tab>
+            <nz-tab [nzTitle]="'已TOKEN授信'" (nzSelect)="getSelect('loaned')"></nz-tab>
+        </nz-tabset>
+    </div>
+    <simple-table [columns]="columns" [data]="data" ([loading])="loading"></simple-table>
+</nz-card>
